@@ -5,16 +5,10 @@ dotenv.config();
 if (process.env.NODE_ENV === "production") {
   require("module-alias/register");
 }
-// import cors from "@/middleware/cors";
 import cors from "cors";
 import loginRoutes from "@/routers/LoginRoutes";
-import broadcastRoutes from "@/routers/BroadcastRoutes";
-import voteRoutes from "@/routers/VoteRoutes";
-import pointPredictionsRoutes from "@/routers/PointPredictionsRoutes";
-import userRoutes from "@/routers/UserRoutes";
-import pointRoutes from "@/routers/PointRoutes";
 import connectDB from "./lib/mongodb/connect";
-import { ApiResponse, TypedRequest, TypedResponse } from "./types/express";
+import { TypedRequest, TypedResponse } from "./types/express";
 
 const app = express();
 app.use(express.json());
@@ -38,6 +32,7 @@ app.use("/api/login", loginRoutes);
 
 connectDB();
 
-app.listen(process.env.PORT || 8080, () => {
-  console.log(`Server is running`);
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}/`);
 });
